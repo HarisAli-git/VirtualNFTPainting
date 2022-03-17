@@ -5,7 +5,7 @@ const app = express();
 const db = require("./app/models");
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:8081",
 };
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 db.sequelize.sync();
 
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to Virtual Painting application." });
 });
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
