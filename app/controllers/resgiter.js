@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 //Registration Function
 
 exports.register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
   try {
     const data = await pool.query(`SELECT * FROM account WHERE email= $1;`, [
       email,
@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
           });
 
         const user = {
-          name,
+          username,
           email,
           password: hash,
         };
@@ -35,8 +35,8 @@ exports.register = async (req, res) => {
         //Inserting data into the database
 
         pool.query(
-          `INSERT INTO users (name, email, password) VALUES ($1,$2,$3);`,
-          [user.name, user.email, user.password],
+          `INSERT INTO account (username, email, password) VALUES ($1,$2,$3);`,
+          [user.username, user.email, user.password],
           (err) => {
             if (err) {
               flag = 0; //If user is not inserted is not inserted to database assigning flag as 0/false.
