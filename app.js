@@ -6,6 +6,13 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
 
+const sessions = require("express-session");
+// creating 1 hour from milliseconds
+const oneHour = 1000 * 60 * 60;
+
+//session middleware
+//session will expire after an hour
+
 var corsOptions = {
   origin: "http://localhost:8081",
 };
@@ -20,6 +27,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(morgan("dev"));
+
+app.use(
+  sessions({
+    secret: "thisismysecrctekeyyyykkk786",
+    saveUninitialized: true,
+    cookie: { maxAge: oneHour },
+    resave: false,
+  })
+);
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

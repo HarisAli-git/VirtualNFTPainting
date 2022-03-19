@@ -3,6 +3,8 @@ CREATE TABLE account (
 	username VARCHAR ( 500 ) UNIQUE NOT NULL,
 	password VARCHAR ( 500 ) NOT NULL,
 	email VARCHAR ( 500 ) UNIQUE NOT NULL,
+	name VARCHAR ( 500 ),
+	description VARCHAR ( 1000 ),
 	created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         last_login TIMESTAMP 
 );
