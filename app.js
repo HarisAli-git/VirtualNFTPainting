@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(cookieParser()); // Add this after you initialize express.
 
 const accountRoutes = require("./app/routes/auth");
+const tagRoutes = require("./app/routes/tags");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
 
 // Routes which should handle requests
 app.use("/account", accountRoutes);
+app.use("/tag", tagRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
