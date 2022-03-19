@@ -37,7 +37,7 @@ exports.register = async (req, res) => {
         //Inserting data into the database
 
         pool.query(
-          `INSERT INTO account (username, email, password) VALUES ($1,$2,$3);`,
+          `INSERT INTO account (username, email, password) VALUES ($1,$2,$3) RETURNING *;`,
           [user.username, user.email, user.password],
           (err) => {
             if (err) {
@@ -48,8 +48,6 @@ exports.register = async (req, res) => {
               });
             } else {
               flag = 1;
-              session = req.session;
-              session.userid = user.username;
               res
                 .status(200)
                 .send({ message: "User added to database, not verified" });
@@ -57,6 +55,14 @@ exports.register = async (req, res) => {
           }
         );
         if (flag) {
+          session = req.session;
+          pool
+            .query("SELECT user_id from account where username = $1", [
+              user.username,
+            ])
+            .then((value) => {
+              session.user_id = value.rows[0].user_id;
+            });
           const token = jwt.sign(
             //Signing a jwt token
             {
