@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 
 //Registration Function
 
+var session;
+
 exports.register = async (req, res) => {
   const { username, email, password } = req.body;
   try {
@@ -46,6 +48,8 @@ exports.register = async (req, res) => {
               });
             } else {
               flag = 1;
+              session = req.session;
+              session.userid = user.username;
               res
                 .status(200)
                 .send({ message: "User added to database, not verified" });

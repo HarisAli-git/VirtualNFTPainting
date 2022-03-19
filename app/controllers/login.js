@@ -31,6 +31,7 @@ exports.login = async (req, res) => {
             },
             process.env.SECRET_KEY
           );
+          console.log("Login: ", req.session);
           res.status(200).json({
             message: "User signed in!",
             token: token,
