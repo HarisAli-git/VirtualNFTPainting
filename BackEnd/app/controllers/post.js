@@ -31,27 +31,19 @@ exports.create_post = async (req, res) => {
 };
 
 exports.view_unsub_posts = async (req, res) => {
-  session = req.session;
-  if (session.user_id) {
-    const user_id = session.user_id;
-    try {
-      const data = await pool.query(
-        `SELECT * from posts where user_id = $1 and subscribe = 0`,
-        [user_id]
-      );
-      res.status(200).json({
-        data: data.rows,
-      });
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({
-        error: "Database error occurred while searching posts!", //Database connection error
-      });
-    }
-  } else {
+  const { user_id } = req.body;
+  try {
+    const data = await pool.query(
+      `SELECT * from posts where user_id = $1 and subscribe = 0`,
+      [user_id]
+    );
     res.status(200).json({
-      message: "user not logged in!",
-      status: -1,
+      data: data.rows,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error occurred while searching posts!", //Database connection error
     });
   }
 };

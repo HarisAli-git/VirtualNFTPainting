@@ -1,8 +1,14 @@
 import axios from "axios";
 
-function FetchTodoList(id) {
-  const param = "user_id=" + id;
-  return axios({ method: "GET", url: "http://localhost:8080/todo?" + param });
+function FetchPosts(param) {
+  const user = {
+    user_id: "11",
+  };
+  return axios({
+    method: "POST",
+    url: "http://localhost:8080/post/",
+    data: user,
+  });
 }
 
 function Fetch_Todo() {
@@ -50,4 +56,4 @@ function Signin(param) {
   });
 }
 
-export { FetchTodoList, Signup, Signin };
+export { FetchPosts, Signup, Signin };

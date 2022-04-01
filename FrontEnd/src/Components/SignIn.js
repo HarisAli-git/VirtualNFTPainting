@@ -28,7 +28,6 @@ const SignIn = () => {
       try {
         const res = await Signin(user);
         localStorage.setItem("user_id", res.data.user_id);
-        console.log("User id ", res.data.user_id);
         setFlag(true);
       } catch (error) {
         setAlert(<Alert variant="success">User Does not exists;</Alert>);
