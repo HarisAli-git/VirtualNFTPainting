@@ -11,8 +11,8 @@ function FetchPosts(param) {
   });
 }
 
-function Fetch_Todo() {
-  return axios({ method: "GET", url: "http://localhost:8080/products" });
+function Fetch_Tags() {
+  return axios({ method: "GET", url: "http://localhost:8080/tags/" });
 }
 
 function Fetch_Label(param) {
@@ -56,4 +56,4 @@ function Signin(param) {
   });
 }
 
-export { FetchPosts, Signup, Signin };
+export { FetchPosts, Signup, Signin, Fetch_Tags };
