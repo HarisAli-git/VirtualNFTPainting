@@ -29,7 +29,7 @@ exports.create_tag = async (req, res) => {
 };
 
 //Search Tag Function
-exports.search_tag = async (req, res) => {
+exports.view_tag = async (req, res) => {
   try {
     const data = await pool.query(`SELECT * FROM tag`); //Verifying if the tag exists in the database
     const tags = data.rows;

@@ -1,12 +1,28 @@
 import axios from "axios";
 
-function FetchTodoList(id) {
-  const param = "user_id=" + id;
-  return axios({ method: "GET", url: "http://localhost:8080/todo?" + param });
+function FetchPosts(param) {
+  return axios({
+    method: "GET",
+    url: "http://localhost:8080/post/",
+  });
 }
 
-function Fetch_Todo() {
-  return axios({ method: "GET", url: "http://localhost:8080/products" });
+function createPosts(param) {
+  const posts = {
+    name: param.name,
+    img_src: param.img_src,
+    subscribe: param.subscribe,
+    describe: param.describe,
+  };
+  return axios({
+    method: "POST",
+    url: "http://localhost:8080/post/CreatePost",
+    data: posts,
+  });
+}
+
+function Fetch_Tags() {
+  return axios({ method: "GET", url: "http://localhost:8080/tag/" });
 }
 
 function Fetch_Label(param) {
@@ -50,4 +66,4 @@ function Signin(param) {
   });
 }
 
-export { FetchTodoList, Signup, Signin };
+export { FetchPosts, Signup, Signin, Fetch_Tags, createPosts };

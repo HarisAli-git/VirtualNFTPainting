@@ -27,8 +27,7 @@ const SignIn = () => {
       setAlert(<Alert variant="success">User Successfully Registered!</Alert>);
       try {
         const res = await Signin(user);
-        localStorage.setItem("user_id", res.data.user_id);
-        console.log("User id ", res.data.user_id);
+        sessionStorage.setItem("user_id", res.data.user_id);
         setFlag(true);
       } catch (error) {
         setAlert(<Alert variant="success">User Does not exists;</Alert>);
