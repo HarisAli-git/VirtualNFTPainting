@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Fetch_Tags } from "../Middleware/Rest_Api";
+import { createPosts, Fetch_Tags } from "../Middleware/Rest_Api";
 import { Alert } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 
@@ -32,9 +32,6 @@ const NewPost = () => {
     if (isEmptyOrSpaces(params.name)) {
       return false;
     }
-    if (typeof params.category === "undefined") {
-      return false;
-    }
     return true;
   };
 
@@ -44,16 +41,7 @@ const NewPost = () => {
 
   const handleChange = (e) => {
     setChecked(!checked);
-    setValue("subscribe", checked);
-  };
-  const fileHandler = () => {
-    const fd = new FormData();
-    fd.append("image", file, file.name);
-  };
-
-  const onChangeFileHandler = (event) => {
-    setFile(event.target.files[0]);
-    console.log("Here is the file: ", "image", file, file.name);
+    checked ? setValue("subscribe", 1) : setValue("subscribe", 0);
   };
 
   const submitForm = async (e) => {
@@ -64,7 +52,8 @@ const NewPost = () => {
 
     if (checkValidation(post)) {
       setAlert(<Alert variant="success">post Successfully Added!</Alert>);
-      const res = "a";
+      setValue("user_id", sessionStorage.getItem("user_id"));
+      const res = await createPosts(post);
       setFlag(true);
       setIsPending(false);
       console.log(res);
@@ -111,7 +100,7 @@ const NewPost = () => {
           type="text"
           required
           value={post.describe}
-          onChange={(e) => setValue("description", e.target.value)}
+          onChange={(e) => setValue("describe", e.target.value)}
         />
         {/* <label>Category: </label>
         <select

@@ -11,6 +11,20 @@ function FetchPosts(param) {
   });
 }
 
+function createPosts(param) {
+  const posts = {
+    name: param.name,
+    img_src: param.img_src,
+    subscribe: param.subscribe,
+    describe: param.describe,
+  };
+  return axios({
+    method: "POST",
+    url: "http://localhost:8080/post/CreatePost",
+    data: posts,
+  });
+}
+
 function Fetch_Tags() {
   return axios({ method: "GET", url: "http://localhost:8080/tags/" });
 }
@@ -56,4 +70,4 @@ function Signin(param) {
   });
 }
 
-export { FetchPosts, Signup, Signin, Fetch_Tags };
+export { FetchPosts, Signup, Signin, Fetch_Tags, createPosts };
