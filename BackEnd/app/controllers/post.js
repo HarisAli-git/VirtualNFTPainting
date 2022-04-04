@@ -21,13 +21,26 @@ exports.create_post = async (req, res) => {
   }
 };
 
-exports.view_unsub_posts = async (req, res) => {
+exports.view_user_posts = async (req, res) => {
   const { user_id } = req.body;
   try {
-    const data = await pool.query(
-      `SELECT * from posts where user_id = $1 and subscribe = 0`,
-      [user_id]
-    );
+    const data = await pool.query(`SELECT * from posts where user_id = $1`, [
+      user_id,
+    ]);
+    res.status(200).json({
+      data: data.rows,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error occurred while searching posts!", //Database connection error
+    });
+  }
+};
+
+exports.get_posts = async (req, res) => {
+  try {
+    const data = await pool.query(`SELECT * from posts where subscribe = 0`);
     res.status(200).json({
       data: data.rows,
     });

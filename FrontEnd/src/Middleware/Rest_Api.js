@@ -1,13 +1,9 @@
 import axios from "axios";
 
 function FetchPosts(param) {
-  const user = {
-    user_id: "11",
-  };
   return axios({
-    method: "POST",
+    method: "GET",
     url: "http://localhost:8080/post/",
-    data: user,
   });
 }
 
