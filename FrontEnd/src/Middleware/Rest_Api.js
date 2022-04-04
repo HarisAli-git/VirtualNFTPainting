@@ -22,7 +22,7 @@ function createPosts(param) {
 }
 
 function Fetch_Tags() {
-  return axios({ method: "GET", url: "http://localhost:8080/tags/" });
+  return axios({ method: "GET", url: "http://localhost:8080/tag/" });
 }
 
 function Fetch_Label(param) {

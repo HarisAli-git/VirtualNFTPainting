@@ -41,7 +41,7 @@ const NewPost = () => {
 
   const handleChange = (e) => {
     setChecked(!checked);
-    checked ? setValue("subscribe", 1) : setValue("subscribe", 0);
+    checked ? setValue("subscribe", 0) : setValue("subscribe", 1);
   };
 
   const submitForm = async (e) => {

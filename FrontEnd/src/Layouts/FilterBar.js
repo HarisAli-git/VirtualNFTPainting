@@ -11,11 +11,11 @@ const FilterBar = () => {
 
   const FetchTags = async (e) => {
     const resp = await Fetch_Tags();
-    settags(resp.data);
+    settags(resp.data.data);
   };
 
   useEffect(() => {
-    console.log("Tags Mounted in Filter Categories!!!!!!");
+    console.log("Tags Mounted in Filter Categories!!");
     FetchTags();
   }, []);
 
@@ -26,7 +26,7 @@ const FilterBar = () => {
 
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Filter By Category
+          Filter By Tags
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
