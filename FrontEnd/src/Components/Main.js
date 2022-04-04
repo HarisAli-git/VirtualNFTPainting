@@ -14,11 +14,11 @@ const Main = ({ value }) => {
   }, [value]);
 
   const callAxios = async (e) => {
-    if (localStorage.getItem("user_id") === "undefined") {
+    if (sessionStorage.getItem("user_id") === "undefined") {
       <Navigate to="/signin" />;
     }
-    console.log("User Id: ", localStorage.getItem("user_id"));
-    const res = await FetchPosts(localStorage.getItem("user_id"));
+    console.log("User Id: ", sessionStorage.getItem("user_id"));
+    const res = await FetchPosts(sessionStorage.getItem("user_id"));
     setPosts(res.data.data);
     console.log("posts: ", res.data);
   };

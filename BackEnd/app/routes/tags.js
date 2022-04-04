@@ -4,6 +4,6 @@ const router = express.Router();
 const TagsController = require("../controllers/tags");
 
 router.post("/addtag", TagsController.create_tag);
-router.get("/tags", TagsController.search_tag);
+router.get("/", TagsController.view_tag);
 
 module.exports = router;

@@ -1,26 +1,25 @@
 import { useEffect, useState } from "react";
-import {
-  Post_SignUpMongo,
-  Fetch_cat_Mongo,
-} from "../middleware/RESTapi_caller";
+import { Fetch_Tags } from "../Middleware/Rest_Api";
 import { Alert } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 
 const NewPost = () => {
   const [post, setPost] = useState({});
+  const [file, setFile] = useState("");
   const [isPending, setIsPending] = useState(false);
   const [categories, setCategories] = useState([]);
   const [alert, setAlert] = useState(" ");
   const [flag, setFlag] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const FetchTags = async (e) => {
-    const resp = await Fetch_cat_Mongo();
+    const resp = await Fetch_Tags();
     setCategories(resp.data);
   };
 
   useEffect(() => {
     console.log("PostGreSQL Tags_Mounted!!!");
-    FetchCategories();
+    FetchTags();
   }, []);
 
   const isEmptyOrSpaces = (str) => {
@@ -43,6 +42,20 @@ const NewPost = () => {
     setPost({ ...post, [name]: value });
   };
 
+  const handleChange = (e) => {
+    setChecked(!checked);
+    setValue("subscribe", checked);
+  };
+  const fileHandler = () => {
+    const fd = new FormData();
+    fd.append("image", file, file.name);
+  };
+
+  const onChangeFileHandler = (event) => {
+    setFile(event.target.files[0]);
+    console.log("Here is the file: ", "image", file, file.name);
+  };
+
   const submitForm = async (e) => {
     e.preventDefault();
     setIsPending(true);
@@ -51,7 +64,7 @@ const NewPost = () => {
 
     if (checkValidation(post)) {
       setAlert(<Alert variant="success">post Successfully Added!</Alert>);
-      const res = await Post_SignUpMongo(post);
+      const res = "a";
       setFlag(true);
       setIsPending(false);
       console.log(res);
@@ -70,7 +83,7 @@ const NewPost = () => {
       <h1>
         <strong>Add a new post</strong>
       </h1>
-      <form onSubmit={submitForm}>
+      <form action="#" onSubmit={submitForm}>
         <label>Name: </label>
         <input
           type="text"
@@ -80,19 +93,27 @@ const NewPost = () => {
         ></input>
         <label>Image Source: </label>
         <input
-          type="text"
+          type="file"
           required
           value={post.img_src}
           onChange={(e) => setValue("img_src", e.target.value)}
         ></input>
+        <label>
+          <input
+            type="checkbox"
+            value={checked}
+            onChange={(e) => handleChange(e)}
+          ></input>
+          <span>: Only For Subsribers?</span>
+        </label>
         <label>Description: </label>
         <input
           type="text"
           required
           value={post.describe}
-          onChange={(e) => setValue("descriptuon", e.target.value)}
+          onChange={(e) => setValue("description", e.target.value)}
         />
-        <label>Category: </label>
+        {/* <label>Category: </label>
         <select
           value={post.category}
           onChange={(e) => setValue("category", e.target.value)}
@@ -105,8 +126,8 @@ const NewPost = () => {
               {cat.name}
             </option>
           ))}
-        </select>
-        {alert}
+        </select> */}
+        {JSON.stringify(post, file)};{alert}
         {!isPending && <button>Add New post</button>}
         {isPending && <button disabled>Adding New post!...</button>}
       </form>

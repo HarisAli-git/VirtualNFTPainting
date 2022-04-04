@@ -6,6 +6,7 @@ import SignUp from "./Components/SignUp";
 import SignIn from "./Components/SignIn";
 import FilterBar from "./Layouts/FilterBar";
 import Navbar from "./Layouts/Navbar";
+import NewPost from "./Components/NewPost";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route exact path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/" element={<FilterBar />} />
+            <Route path="/create" element={<NewPost />} />
             {/* <Route path="todo/:id" element={<EditTodo/>}/> */}
             {/* <Route path="/:cid" element={<ViewCategory/>}/> */}
             {/* <Route path="/create" element={<AddTodo/>}/> */}
