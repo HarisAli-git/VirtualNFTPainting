@@ -5,6 +5,22 @@ import { useEffect, useState } from "react";
 import { Card, Button, Alert } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 
+const ReadMore = ({ children }) => {
+  const text = children;
+  const [isReadMore, setIsReadMore] = useState(true);
+  const toggleReadMore = () => {
+    setIsReadMore(!isReadMore);
+  };
+  return (
+    <p className="text">
+      {isReadMore ? text.slice(0, 2) : text}
+      <span onClick={toggleReadMore} className="read-or-hide">
+        {isReadMore ? "...read more" : " show less"}
+      </span>
+    </p>
+  );
+};
+
 const Main = ({ value }) => {
   const [posts, setPosts] = useState([]);
   const [alert, setAlert] = useState(" ");
@@ -44,8 +60,9 @@ const Display = ({ posts }) => {
         />
         <Card.Body>
           <Card.Title>{myprod.name}</Card.Title>
-          <Card.Text>Description {myprod.describe}</Card.Text>
-          {JSON.stringify(myprod.id)}
+          <Card.Text>
+            Description <ReadMore>{myprod.describe}</ReadMore>
+          </Card.Text>
           <Link to={`/${myprod.id}`}>
             <Button variant="primary">View Details!</Button>
           </Link>
