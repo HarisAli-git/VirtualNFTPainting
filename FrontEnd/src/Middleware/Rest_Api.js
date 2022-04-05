@@ -7,13 +7,34 @@ function FetchPosts(param) {
   });
 }
 
+function retweetPosts(param) {
+  const post = {
+    describe: param.describe,
+    id: param.id,
+    img_src: param.img_src,
+    name: param.name,
+    subscribe: param.subscribe,
+    post_user_id: param.user_id,
+    curr_user_id: param.curr_user_id,
+  };
+
+  return axios({
+    method: "POST",
+    url: "http://localhost:8080/post/RetweetPost",
+    data: post,
+  });
+}
+
 function createPosts(param) {
   const posts = {
     name: param.name,
     img_src: param.img_src,
     subscribe: param.subscribe,
     describe: param.describe,
+    retweet_user_id: null,
+    user_id: param.user_id,
   };
+  console.log("param for axios: ", param);
   return axios({
     method: "POST",
     url: "http://localhost:8080/post/CreatePost",
@@ -66,4 +87,4 @@ function Signin(param) {
   });
 }
 
-export { FetchPosts, Signup, Signin, Fetch_Tags, createPosts };
+export { FetchPosts, Signup, Signin, Fetch_Tags, createPosts, retweetPosts };

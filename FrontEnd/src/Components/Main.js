@@ -1,5 +1,5 @@
 import React from "react";
-import { FetchPosts } from "../Middleware/Rest_Api";
+import { retweetPosts, FetchPosts } from "../Middleware/Rest_Api";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Card, Button, Alert } from "react-bootstrap";
@@ -34,9 +34,9 @@ const Main = ({ value }) => {
       <Navigate to="/signin" />;
     }
     console.log("User Id: ", sessionStorage.getItem("user_id"));
-    const res = await FetchPosts(sessionStorage.getItem("user_id"));
+    const res = await FetchPosts();
     setPosts(res.data.data);
-    console.log("posts: ", res.data);
+    console.log("posts: ", res);
   };
 
   return (
@@ -63,9 +63,17 @@ const Display = ({ posts }) => {
           <Card.Text>
             Description <ReadMore>{myprod.describe}</ReadMore>
           </Card.Text>
-          <Link to={`/${myprod.id}`}>
-            <Button variant="primary">View Details!</Button>
-          </Link>
+          <Button
+            variant="primary"
+            onClick={() => {
+              let prod = myprod;
+              prod["curr_user_id"] = sessionStorage.getItem("user_id");
+              retweetPosts(prod);
+            }}
+          >
+            Re Tweet!
+          </Button>
+          th
         </Card.Body>
       </Card>
       <br />

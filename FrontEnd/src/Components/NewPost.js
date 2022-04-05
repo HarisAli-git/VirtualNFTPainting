@@ -52,8 +52,9 @@ const NewPost = () => {
 
     if (checkValidation(post)) {
       setAlert(<Alert variant="success">post Successfully Added!</Alert>);
-      setValue("user_id", sessionStorage.getItem("user_id"));
-      const res = await createPosts(post);
+      let cpost = post;
+      cpost["user_id"] = sessionStorage.getItem("user_id");
+      const res = await createPosts(cpost);
       setFlag(true);
       setIsPending(false);
       console.log(res);

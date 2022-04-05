@@ -6,5 +6,6 @@ const PostController = require("../controllers/post");
 router.post("/CreatePost", PostController.create_post);
 router.post("/user", PostController.view_user_posts);
 router.get("/", PostController.get_posts);
+router.post("/RetweetPost", PostController.RetweetPost);
 
 module.exports = router;

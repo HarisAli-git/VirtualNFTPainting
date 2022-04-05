@@ -24,6 +24,7 @@ CREATE TABLE posts (
 	img_src VARCHAR ( 5000 ) NOT NULL,
 	describe VARCHAR ( 5000 ) NOT NULL,
 	subscribe int NOT NULL,
+	retweet_user_id int REFERENCES account(user_id),
 	user_id int REFERENCES account(user_id),
 	CONSTRAINT check_subscribe CHECK (subscribe IN (1, 0))
 );
