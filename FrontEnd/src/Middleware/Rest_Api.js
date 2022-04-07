@@ -46,6 +46,10 @@ function Fetch_Tags() {
   return axios({ method: "GET", url: "http://localhost:8080/tag/" });
 }
 
+function Fetch_Post_Tags() {
+  return axios({ method: "GET", url: "http://localhost:8080/tag/post" });
+}
+
 function Fetch_Label(param) {
   return axios({ method: "GET", url: "http://localhost:8080/categories/" });
 }
@@ -87,4 +91,12 @@ function Signin(param) {
   });
 }
 
-export { FetchPosts, Signup, Signin, Fetch_Tags, createPosts, retweetPosts };
+export {
+  FetchPosts,
+  Signup,
+  Signin,
+  Fetch_Tags,
+  createPosts,
+  retweetPosts,
+  Fetch_Post_Tags,
+};
