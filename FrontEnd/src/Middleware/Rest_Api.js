@@ -28,11 +28,11 @@ function retweetPosts(param) {
 function createPosts(param) {
   const posts = {
     name: param.name,
-    img_src: param.img_src,
     subscribe: param.subscribe,
     describe: param.describe,
     retweet_user_id: null,
     user_id: param.user_id,
+    file: param.file,
   };
   console.log("param for axios: ", param);
   return axios({
