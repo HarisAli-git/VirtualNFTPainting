@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
 require("dotenv").config();
 
 const sessions = require("express-session");

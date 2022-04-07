@@ -49,3 +49,22 @@ exports.view_tag = async (req, res) => {
     });
   }
 };
+
+//Search Tag Function
+exports.get_post_tag = async (req, res) => {
+  const { p_id } = req.body;
+  try {
+    const data = await pool.query(`SELECT * FROM post_tags where id = $1`, [
+      p_id,
+    ]); //Verifying if the tag exists in the database
+
+    res.status(200).json({
+      data: data.rows,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error occurred while searching tag in posts!", //Database connection error
+    });
+  }
+};

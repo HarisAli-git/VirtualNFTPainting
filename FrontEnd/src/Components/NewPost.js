@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 
 const NewPost = () => {
   const [post, setPost] = useState({});
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState();
   const [isPending, setIsPending] = useState(false);
   const [categories, setCategories] = useState([]);
   const [alert, setAlert] = useState(" ");
@@ -44,6 +44,31 @@ const NewPost = () => {
     checked ? setValue("subscribe", 0) : setValue("subscribe", 1);
   };
 
+  const onFileChange = (event) => {
+    // Update the state
+    setFile(event.target.files[0]);
+  };
+
+  // On file upload (click the upload button)
+  const onFileUpload = () => {
+    // Create an object of formData
+    const formData = new FormData();
+
+    // Update the formData object
+    formData.append("image", file, file.name);
+
+    // Request made to the backend api
+    // Send formData object
+
+    formData.append("suscribe", post.suscribe);
+    formData.append("describe", post.describe);
+    formData.append("name", post.name);
+    formData.append("user_id", sessionStorage.getItem("user_id"));
+
+    setFile(null);
+    setFile(formData);
+  };
+
   const submitForm = async (e) => {
     e.preventDefault();
     setIsPending(true);
@@ -54,6 +79,8 @@ const NewPost = () => {
       setAlert(<Alert variant="success">post Successfully Added!</Alert>);
       let cpost = post;
       cpost["user_id"] = sessionStorage.getItem("user_id");
+      cpost["file"] = file;
+      onFileUpload();
       const res = await createPosts(cpost);
       setFlag(true);
       setIsPending(false);
@@ -86,7 +113,7 @@ const NewPost = () => {
           type="file"
           required
           value={post.img_src}
-          onChange={(e) => setValue("img_src", e.target.value)}
+          onChange={(e) => onFileChange(e)}
         ></input>
         <label>
           <input

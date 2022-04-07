@@ -29,3 +29,8 @@ CREATE TABLE posts (
 	CONSTRAINT check_subscribe CHECK (subscribe IN (1, 0))
 );
 
+CREATE TABLE post_tags (
+	tag_id int REFERENCES tag(tag_id),
+	id int REFERENCES posts(id)
+);
+
