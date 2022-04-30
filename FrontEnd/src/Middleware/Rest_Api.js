@@ -42,6 +42,10 @@ function createPosts(param) {
   });
 }
 
+function displayProfile(name) {
+  return axios({ method: "GET", url: "http://localhost:8080/user/" + name });
+}
+
 function Fetch_Tags() {
   return axios({ method: "GET", url: "http://localhost:8080/tag/" });
 }
@@ -54,9 +58,14 @@ function Fetch_Label(param) {
   return axios({ method: "GET", url: "http://localhost:8080/categories/" });
 }
 
-// function Fetch_Todo(id) {
-//     return axios({ method: "GET", url: "http://localhost:5000/products/" + id });
-// }
+function Check_Out(param) {
+  console.log("ID:", param);
+  return axios({
+    method: "POST",
+    url: "http://localhost:8080/create-checkout-session/",
+    data: param,
+  });
+}
 
 function Delete_Todo(id) {
   return axios({
@@ -99,4 +108,6 @@ export {
   createPosts,
   retweetPosts,
   Fetch_Post_Tags,
+  displayProfile,
+  Check_Out,
 };
